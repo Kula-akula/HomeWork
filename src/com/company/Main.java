@@ -8,6 +8,94 @@ import java.util.LinkedList;
 public class Main {
 
     public static void main(String[] args) {
+        LinkedList<Animal> animals = new LinkedList<>();
+        LinkedList<Animal> linkedList = new LinkedList<>();
+
+
+        int age = 1;
+        for (int i = 1; i <= 100; i++) {
+            if (i <= 50) {
+                animals.add(new Cat(i));
+
+            } else {
+                animals.add(new Dog(age));
+                age++;
+            }
+
+        }
+//        System.out.println(animals);
+
+        int counter = 0;
+        for (int i = 0; i < animals.size(); i++) {
+            if (animals.get(i) instanceof Cat) {
+                counter += 1;
+                if (counter == 5) {
+                    animals.remove(i);
+                    counter = 0;
+                }
+            }
+        }
+        counter = 0;
+        int j = 0;
+        for (int i = 0; i < animals.size(); i++) {
+            if (animals.get(i) instanceof Dog) {
+                counter += 1;
+                if (counter == 3) {
+                    j++;
+                    animals.add(i + 1, new Mouse(j));
+                    counter = 0;
+                }
+            }
+        }
+//        System.out.println(animals);
+        for (int i = 0; i <animals.size(); i++) {
+            if (animals.get(i) instanceof Cat && animals.get(i + 1) instanceof Mouse
+                    || animals.get(i) instanceof Mouse && animals.get(i + 1) instanceof Cat) {
+                linkedList.add(animals.get(i));
+                if (animals.get(i-1)instanceof Cat&&animals.get(i)instanceof Mouse){               //Во время проверки поставил, что бы и кошку и мышку, а потом следующию кошку закидывать в отдельный лист.
+                    linkedList.add(animals.get(i+1));
+                }
+            }
+        }
+//        System.out.println(linkedList);
+
+        ArrayList<Animal> arrayList = new ArrayList<>(animals);
+//        System.out.println(arrayList);
+
+        int countAgeCat = 0, countAgeDog = 0, countAgeMouse = 0;
+        for (int i = 0; i < arrayList.size(); i++) {
+            if (arrayList.get(i) instanceof Cat) {
+                countAgeCat += arrayList.get(i).getAge();
+            } else if (arrayList.get(i) instanceof Dog) {
+                countAgeDog += arrayList.get(i).getAge();
+            } else if (arrayList.get(i) instanceof Mouse) {
+                countAgeMouse += arrayList.get(i).getAge();
+            }
+        }
+        System.out.println("Sum of cats age:    " + countAgeCat);
+        System.out.println("Sum of dogs age:    " + countAgeDog);
+        System.out.println("Sum of mouses age:  " + countAgeMouse);
+
+        LinkedList<Animal> newLinkedList=new LinkedList<>();
+        for (Animal a : animals) {
+            if (a instanceof Cat)
+                newLinkedList.addFirst(a);
+        }
+        for (Animal b : animals) {
+            if (b instanceof Dog)
+                newLinkedList.add(b);
+        }
+        for (Animal c : animals) {
+            if (c instanceof Mouse)
+                newLinkedList.addLast(c);
+        }
+        System.out.println(newLinkedList);
+
+
+
+
+
+
         ArrayList<Cat> catslist = new ArrayList<>();
         LinkedList<Cat> catslink = new LinkedList<>();
         LocalDateTime startArray=LocalDateTime.now();
@@ -174,7 +262,6 @@ class Cat extends Animal{
     @Override
     public String toString() {
         return "\nCat " +
-                "name: " + name +
-                ", age: " + age+" years old" ;
+                "age: " + age+" years old" ;
     }
 }
