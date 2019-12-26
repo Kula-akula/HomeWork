@@ -1,0 +1,41 @@
+create table Trainers(
+id integer primary key,
+full_name varchar(50) not null,
+phone_number varchar(20),
+inn varchar(14) unique not null
+);
+create table Visitors(
+id integer primary key unique,
+full_name varchar(50) not null,
+birth_date varchar(20)not null,
+gender varchar(10) not null
+);
+create table Visit(
+Visitors integer references visitors(id),
+visit_time varchar(20) not null,
+Trainers integer references trainers(id)
+);
+insert into trainers(id,full_name,inn)
+values (1,'Jumbo',010101);
+select*from visitors;
+insert into visitors (id,full_name, birth_date,gender)
+values(1,'Hakuna Matata','21.03.03','male');
+insert into visit (visitors,visit_time,trainers)
+values (1,'18:45',1);
+
+
+FAQ:
+1.  Как вы понимаете Git?
+Это программа контроля версий.
+2.  Для чего нам нужны Базы Данных?
+Для того что бы все данные определенной программы хранить в упорядоченном виде.
+3.  Что такое первичный ключ (Primary Key)?
+Это локальная переменная в самой таблице.
+4.  Что такое внешний ключ (Foreign Key)?
+Это внешняя(ссылка) переменная из другой таблицы.
+5.  Чем отличаются колонки от строк?
+В строке могут содержаться перечисление разных параметров определенного объекта, а в колонке перечисление самих объектов.
+6.  Чем отличаются таблицы от базы данных?
+Базы данных состоят из таблиц.
+7.  Что такое CRUD операции?
+Это не что иное как "create read update delete" что переводится как "создание чтение обновление удаление".
